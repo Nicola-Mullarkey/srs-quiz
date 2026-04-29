@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Find Your Business Bottleneck | Smart Resource Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #faf7f2; color: #0f1f45; min-height: 100vh; }
+.hdr { background: #fff; border-bottom: 1px solid #e2ddd6; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+.hdr img { height: 52px; width: auto; max-width: 220px; }
+.hdr-tag { font-size: 11px; color: #c41e3a; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: #fff0f2; padding: 4px 12px; border-radius: 20px; }
+.wrap { max-width: 620px; margin: 0 auto; padding: 32px 20px 60px; text-align: center; }
+.page { display: none; }
+.page.on { display: block; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c41e3a; display: block; margin-bottom: 16px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 44px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+h1 em { color: #c41e3a; font-style: italic; }
+.lead { font-size: 16px; line-height: 1.65; color: #6b7a99; margin-bottom: 28px; }
+.stats { display: flex; gap: 40px; margin-bottom: 28px; justify-content: center; }
+.stat .n { font-family: 'Trebuchet MS', sans-serif; font-size: 28px; font-weight: 700; color: #0f1f45; display: block; }
+.stat .l { font-size: 12px; color: #6b7a99; margin-top: 4px; display: block; }
+.discover { margin-bottom: 28px; text-align: left; background: #fff; border: 1px solid #e2ddd6; border-radius: 14px; padding: 20px; }
+.discover .dtitle { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #6b7a99; margin-bottom: 14px; text-align: center; }
+.ditem { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0ede8; font-size: 14px; color: #0f1f45; line-height: 1.45; }
+.ditem:last-child { border-bottom: none; padding-bottom: 0; }
+.dicon { font-size: 16px; flex-shrink: 0; }
+.btn { display: block; width: 100%; max-width: 380px; background: linear-gradient(135deg, #c41e3a, #8b0000); color: #fff; border: none; padding: 16px 32px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 6px 20px rgba(196,30,58,.3); transition: all .2s; margin: 0 auto; text-align: center; }
+.btn:hover { transform: translateY(-2px); }
+.note { font-size: 12px; color: #6b7a99; margin-top: 10px; display: block; }
+.prog { display: flex; gap: 5px; margin-bottom: 8px; }
+.pip { flex: 1; height: 4px; background: #e2ddd6; border-radius: 2px; }
+.pip.done { background: #c41e3a; }
+.pip.now { background: #e8a838; }
+.qnum { font-size: 12px; color: #6b7a99; margin-bottom: 20px; text-align: left; }
+.qtag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #6b7a99; background: #fff; border: 1px solid #e2ddd6; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+.qtxt { font-family: 'Playfair Display', serif; font-size: clamp(17px, 4vw, 22px); font-weight: 700; line-height: 1.3; margin-bottom: 8px; text-align: left; }
+.qsub { font-size: 14px; color: #6b7a99; margin-bottom: 20px; text-align: left; }
+.ans { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.ans button { background: #fff; border: 2px solid #e2ddd6; border-radius: 12px; padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 14px; text-align: left; color: #0f1f45; transition: all .2s; width: 100%; font-family: 'DM Sans', sans-serif; }
+.ans button:hover { border-color: #c41e3a; background: #fff8f9; }
+.ans button.sel { border-color: #c41e3a; background: #fff0f2; }
+.dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #cbd2e0; flex-shrink: 0; }
+.ans button.sel .dot { background: #c41e3a; border-color: #c41e3a; }
+.nav { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+.back { background: none; border: none; font-size: 14px; color: #6b7a99; cursor: pointer; padding: 8px 0; font-family: 'DM Sans', sans-serif; }
+.cap h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+.cap > p { color: #6b7a99; font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
+.fields { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 0 auto 16px; }
+.fields input { padding: 14px 16px; border: 2px solid #e2ddd6; border-radius: 10px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: #0f1f45; background: #fff; width: 100%; }
+.fields input:focus { outline: none; border-color: #0f1f45; }
+.gdpr { max-width: 380px; margin: 0 auto 16px; text-align: left; background: #f4f6fa; border-radius: 10px; padding: 14px 16px; }
+.gdpr-title { font-size: 12px; font-weight: 700; color: #0f1f45; margin-bottom: 10px; }
+.gcheck { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.gcheck:last-child { margin-bottom: 0; }
+.gcheck input { margin-top: 2px; flex-shrink: 0; accent-color: #c41e3a; width: 16px; height: 16px; cursor: pointer; }
+.gcheck label { font-size: 12px; color: #3a4a6b; cursor: pointer; line-height: 1.45; }
+.privacy { font-size: 11px; color: #9aa5bd; text-align: center; line-height: 1.5; max-width: 380px; margin: 0 auto; }
+.hp { position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; }
+</style>
+</head>
+<body>
+<div class="hdr">
+  <img src="data:image/png;base64,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" alt="Smart Resource Solutions">
+  <span class="hdr-tag">Free Quiz</span>
+</div>
+<div class="wrap">
+
+  <div class="page on" id="p-intro">
+    <span class="eyebrow">Free &middot; Small Business Owners &middot; 2 Minutes</span>
+    <h1>Find your bottleneck &ndash; <em>Own your superpower.</em></h1>
+    <p class="lead">In 2 minutes, find out exactly what kind of support your business needs to grow &ndash; and which of 4 business owner types you are.</p>
+    <div class="stats">
+      <div class="stat"><span class="n">8</span><span class="l">questions</span></div>
+      <div class="stat"><span class="n">4</span><span class="l">business types</span></div>
+      <div class="stat"><span class="n">Free</span><span class="l">always</span></div>
+    </div>
+    <div class="discover">
+      <div class="dtitle">What you&rsquo;ll discover</div>
+      <div class="ditem"><span class="dicon">&#128269;</span><span>Where your time is really going &ndash; and what that&rsquo;s costing you</span></div>
+      <div class="ditem"><span class="dicon">&#127919;</span><span>What kind of help will make the biggest difference to your business right now</span></div>
+      <div class="ditem"><span class="dicon">&#129517;</span><span>Your next practical step &ndash; specific to your business owner type</span></div>
+      <div class="ditem"><span class="dicon">&#11088;</span><span>Your unique superpower &ndash; and how to build a team around it</span></div>
+    </div>
+    <button class="btn" onclick="start()">Find out now &rarr;</button>
+    <span class="note">Free &middot; instant results &middot; no spam</span>
+  </div>
+
+  <div class="page" id="p-quiz"></div>
+
+  <div class="page" id="p-cap">
+    <div class="cap">
+      <div style="font-size:44px;margin-bottom:14px">&#127881;</div>
+      <h2>Your result is ready</h2>
+      <p>Enter your details below to reveal your superpower and get your personalised action plan.</p>
+      <div class="fields">
+        <input type="text" id="fname" placeholder="Your first name">
+        <input type="email" id="femail" placeholder="Your best email address">
+        <input type="text" class="hp" id="hpfield" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="gdpr">
+        <div class="gdpr-title">How we&rsquo;ll use your details</div>
+        <div class="gcheck">
+          <input type="checkbox" id="g1" checked disabled>
+          <label for="g1">Send me my personalised result and action plan &ndash; <strong>required to receive your result</strong></label>
+        </div>
+        <div class="gcheck">
+          <input type="checkbox" id="g2">
+          <label for="g2">Yes &ndash; keep me in the loop with practical hiring tips and updates while I wait. I can unsubscribe any time.</label>
+        </div>
+        <div class="gcheck">
+          <input type="checkbox" id="g3">
+          <label for="g3">I need help now &ndash; please arrange a call</label>
+        </div>
+      </div>
+      <button class="btn" onclick="showResult()" style="margin-bottom:12px">Show me my result &rarr;</button>
+      <p class="privacy">&#128274; No spam, ever. Unsubscribe any time. We process your data in line with UK GDPR.</p>
+    </div>
+  </div>
+
+  <div class="page" id="p-result"></div>
+
+</div>
+<script>
+var Q = [
+  { tag:"Your Day", q:"What does a typical Tuesday look like for you?", sub:"Be honest &ndash; nobody&rsquo;s watching.",
+    a:["Back-to-back tasks. I&rsquo;m first in, last out and my list never gets shorter.",
+       "In meetings most of the day &ndash; but I still end up doing the actual work too.",
+       "I delegate a lot, but check in constantly because I&rsquo;m not sure it&rsquo;ll be done right.",
+       "A mix of strategic thinking and team check-ins. I&rsquo;ve protected my diary."],
+    s:[{solo:3,perf:1},{nat:3,perf:1},{perf:3},{strat:3}] },
+  { tag:"Delegation", q:"When you hand something to someone else, what happens?", sub:"Think about the last time you delegated something meaningful.",
+    a:["Honestly? I usually end up redoing it myself &ndash; it&rsquo;s quicker.",
+       "I hover. I check in. I probably micromanage more than I&rsquo;d like to admit.",
+       "It gets done, but not quite how I&rsquo;d have done it. I&rsquo;ve learned to live with that.",
+       "It gets done. I&rsquo;m clear on the brief and check in at agreed milestones."],
+    s:[{solo:3,perf:2},{perf:3,nat:1},{nat:2,strat:1},{strat:3}] },
+  { tag:"Your Team", q:"How does work tend to flow in your business?", sub:"Think about what actually happens day-to-day, not what you&rsquo;d like to happen.",
+    a:["Everything comes through me &ndash; I&rsquo;m the hub for all decisions and delivery.",
+       "Things move fast but it&rsquo;s chaotic &ndash; direction changes often and it&rsquo;s hard to finish things.",
+       "Work gets done but I end up checking a lot &ndash; I worry about quality slipping.",
+       "Smoothly &ndash; people know what they own and I focus on the bigger picture."],
+    s:[{solo:3},{nat:3},{perf:3},{strat:3}] },
+  { tag:"Decisions", q:"How many decisions in your business genuinely can&rsquo;t happen without you?", sub:"Think about what actually happened last week.",
+    a:["Almost all of them &ndash; I&rsquo;m the decision point for pretty much everything.",
+       "Most of the big ones, and quite a few small ones too.",
+       "The strategic ones &ndash; I&rsquo;ve tried to push day-to-day decisions down.",
+       "Very few &ndash; my team is empowered and they own their areas."],
+    s:[{solo:3,nat:1},{nat:2,perf:1},{strat:2,perf:1},{strat:3}] },
+  { tag:"Time", q:"When did you last spend a full day working on the business rather than in it?", sub:"Strategy, vision, future planning &ndash; not client work or admin.",
+    a:["I genuinely can&rsquo;t remember.",
+       "Maybe once a quarter &ndash; when I force myself.",
+       "Monthly or so &ndash; I block time but it gets cancelled more than I&rsquo;d like.",
+       "Weekly &ndash; it&rsquo;s non-negotiable."],
+    s:[{solo:3,nat:1},{perf:2,nat:1},{nat:2,strat:1},{strat:3}] },
+  { tag:"Hiring", q:"Think about the last person you hired. How did it go?", sub:"Or if you haven&rsquo;t hired yet, what&rsquo;s stopped you?",
+    a:["I haven&rsquo;t hired yet &ndash; it feels overwhelming or expensive.",
+       "It didn&rsquo;t work out &ndash; looking back I&rsquo;m not sure I knew what I actually needed.",
+       "Mixed &ndash; they were good but I found it hard to hand things over properly.",
+       "Good &ndash; I was clear on the role, took my time, and they&rsquo;ve had real impact."],
+    s:[{solo:2,perf:1},{nat:3},{perf:3},{strat:3}] },
+  { tag:"Gut Check", q:"If you doubled your revenue tomorrow, what would break first?", sub:"The thing that keeps you up at night.",
+    a:["Me &ndash; I&rsquo;m already at capacity and there&rsquo;s no-one to absorb the extra work.",
+       "My team &ndash; they&rsquo;re stretched and I don&rsquo;t have the right people in the right seats.",
+       "The handover &ndash; I&rsquo;d bring people in but struggle to let go of control.",
+       "Honestly, not much &ndash; I&rsquo;ve built for growth and we&rsquo;d manage."],
+    s:[{solo:3},{nat:3},{perf:3},{strat:3}] },
+  { tag:"Future", q:"What would getting the right help give your business right now?", sub:"Your honest answer here says a lot.",
+    a:["Time &ndash; I want to stop being the only one who can do everything.",
+       "Confidence &ndash; I want to know I&rsquo;m building my team the right way.",
+       "Momentum &ndash; I want to stop reacting and start growing intentionally.",
+       "Excellence &ndash; I want a team that matches my standards and helps me build something I&rsquo;m proud of."],
+    s:[{solo:2,perf:1},{perf:2,nat:1},{nat:2,strat:1},{strat:3}] }
+];
+
+var T = {
+  solo: {
+    icon:"&#127939;", badge:"SUPERPOWER 1 OF 4", title:"The Solo Superhero",
+    sub:"You&rsquo;ve built this yourself &ndash; now let&rsquo;s make it easier to stop doing it alone.",
+    sub2:"Here&rsquo;s what this means for you &mdash; and what to do next.",
+    ins:[
+      {hl:1, i:"&#9889;", h:"Your superpower",
+       t:"<strong>You make things happen.</strong><br><br>Fast, thoroughly, and to your exact standard.<br><br>You&rsquo;ve built something real through sheer determination &mdash; most people never get this far.<br><br>Your ability to do everything yourself has been your greatest strength.",
+       bold:"This is why you&rsquo;ve got this far."},
+      {hl:0, i:"&#9888;&#65039;", h:"Your bottleneck",
+       t:"<strong>The very thing that made you successful is now holding you back.</strong><br><br>When everything goes through you, your business can only grow as fast as you can work.<br><br>Every hour spent on tasks someone else could do is time taken away from vision, growth, and momentum.",
+       bold:"This is what&rsquo;s slowing you down now."},
+      {hl:0, i:"&#129517;", h:"Your next step",
+       pre:"Your first step: Track where your time actually goes for 5 days.",
+       t:"<strong>Pick one week and track everything.</strong><br><br>Look for:<br>&bull; what only you can do<br>&bull; what someone else could take on<br>&bull; what shouldn&rsquo;t be done at all<br><br>Most Solo Superheroes discover they can free up a huge amount of time just by seeing it clearly.<br><br>We&rsquo;ve created a simple time audit tool to help &mdash; it&rsquo;s part of what we&rsquo;re building inside SMART Insider. Join the waiting list to get access and we&rsquo;ll send it to you right now.",
+       bold:"This is the fastest way to move forward."}
+    ],
+    cta:"Stop guessing. Start building your dream team."
+  },
+  perf: {
+    icon:"&#128155;", badge:"SUPERPOWER 2 OF 4", title:"The Caring Perfectionist",
+    sub:"You care about doing things properly &ndash; now let&rsquo;s make that easier for your team too.",
+    sub2:"Here&rsquo;s what this means for you &mdash; and what to do next.",
+    ins:[
+      {hl:1, i:"&#128155;", h:"Your superpower",
+       t:"<strong>You care deeply &mdash; about your clients, your work, and the people around you.</strong> Your attention to detail and commitment to excellence is what sets your business apart.<br><br>People trust you because you deliver.<br><br>This isn&rsquo;t a weakness &mdash; it&rsquo;s the foundation of everything you&rsquo;ve built.",
+       bold:"This is why you&rsquo;ve got this far."},
+      {hl:0, i:"&#9888;&#65039;", h:"Your bottleneck",
+       t:"<strong>When your standards are high but the brief isn&rsquo;t clear, people struggle to succeed without you.</strong><br><br>So you step back in. You check, redo, or take things back.<br><br>It starts to feel easier to just do it yourself.<br><br>But this isn&rsquo;t about capability &mdash; it&rsquo;s about clarity.<br><br><strong>Delegation without clarity isn&rsquo;t delegation.</strong>",
+       bold:"But this is what&rsquo;s slowing you down now."},
+      {hl:0, i:"&#129517;", h:"Your next step",
+       pre:"Write one clear brief for a task you&rsquo;ve taken back.",
+       t:"<strong>Pick one task you&rsquo;ve reclaimed recently.</strong><br><br>Write exactly:<br>&bull; what &ldquo;done&rdquo; looks like<br>&bull; the standard required<br>&bull; when it&rsquo;s needed<br><br>Then hand it back &mdash; and watch what happens.<br><br>We&rsquo;ve created a simple delegation brief template to help &mdash; it&rsquo;s one of the tools inside what we&rsquo;re building. Join the waiting list to get access and we&rsquo;ll send it to you right now.",
+       bold:"This is the fastest way to move forward."}
+    ],
+    cta:"Stop guessing. Start building your dream team."
+  },
+  nat: {
+    icon:"&#128293;", badge:"SUPERPOWER 3 OF 4", title:"The Natural Leader",
+    sub:"You&rsquo;ve built something real &ndash; now it&rsquo;s time to build your dream team around it.",
+    sub2:"Here&rsquo;s what this means for you &mdash; and what to do next.",
+    ins:[
+      {hl:1, i:"&#128640;", h:"Your superpower",
+       t:"<strong>You inspire people.</strong><br><br>Your energy, vision and drive naturally bring people with you &ndash; not because you asked them to follow, but because they want to be part of what you&rsquo;re building.<br><br>You&rsquo;ve created something from nothing and kept it moving forward.<br><br>That kind of leadership is rare &ndash; and genuinely valuable.",
+       bold:"This is why you&rsquo;ve got this far."},
+      {hl:0, i:"&#9888;&#65039;", h:"Your bottleneck",
+       t:"<strong>As a Natural Leader, hiring often becomes reactive.</strong><br><br>You bring people in when the pressure builds &ndash; rather than as part of a clear plan.<br><br>And the wrong hire doesn&rsquo;t just cost money. It costs momentum, team morale, and your energy as you deal with the fallout.",
+       bold:"This is what&rsquo;s slowing you down now."},
+      {hl:0, i:"&#129517;", h:"Your next step",
+       pre:"Your first step: Define what your next hire needs to achieve in 90 days.",
+       t:"<strong>Before your next hire, get intentional.</strong><br><br>Define:<br>&bull; what success looks like<br>&bull; what needs to be achieved<br>&bull; what kind of person will thrive<br><br>Clarity here changes everything.<br><br>We&rsquo;ve created a simple role clarity template to help &ndash; it&rsquo;s one of the tools inside what we&rsquo;re building. Join the waiting list to get access and we&rsquo;ll send it to you right now.",
+       bold:"This is the fastest way to move forward."}
+    ],
+    cta:"Stop guessing. Start building your dream team."
+  },
+  strat: {
+    icon:"&#129517;", badge:"SUPERPOWER 4 OF 4", title:"The Strategic Builder",
+    sub:"You lead with intention. Now hire with the same precision.",
+    sub2:"Here&rsquo;s what this means for you &mdash; and what to do next.",
+    ins:[
+      {hl:1, i:"&#9989;", h:"Your superpower",
+       t:"<strong>You lead with intention.</strong><br><br>You&rsquo;ve built a business that doesn&rsquo;t fall apart when you step away &ndash; and that puts you in a very small group of business owners.<br><br>You think about culture, not just capability.<br><br>You understand that the right team is the difference between a business and a legacy.",
+       bold:"This is why you&rsquo;ve got this far."},
+      {hl:0, i:"&#9888;&#65039;", h:"Your bottleneck",
+       t:"<strong>At your stage, a wrong hire is expensive &ndash; not just financially, but in momentum, focus and team dynamics.</strong><br><br>Gut instinct has got you this far.<br><br>But it&rsquo;s no longer enough on its own.<br><br>You need a clear, repeatable way to assess, compare and choose the right people &ndash; every time.",
+       bold:"This is what&rsquo;s slowing you down now."},
+      {hl:0, i:"&#129517;", h:"Your next step",
+       pre:"Your first step: Audit your hiring process from start to finish.",
+       t:"<strong>Map every step &mdash; from needing someone to their first day.</strong><br><br>Where are the gaps? Where are you relying on gut feel alone?<br><br>Clarity here gives you control.<br><br>We&rsquo;ve created a simple hiring process audit tool to help &ndash; it&rsquo;s one of the tools inside what we&rsquo;re building. Join the waiting list to get access and we&rsquo;ll send it to you right now.",
+       bold:"This is the fastest way to move forward."}
+    ],
+    cta:"Stop guessing. Start building your dream team."
+  }
+};
+
+var scores = {solo:0, perf:0, nat:0, strat:0};
+var answers = {};
+var cur = 0;
+var capName = '', capEmail = '';
+
+function show(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0, 0);
+  try { window.parent.scrollTo(0, 0); } catch(e) {}
+}
+
+function start() { renderQ(0); show('p-quiz'); }
+
+function renderQ(n) {
+  cur = n;
+  var q = Q[n];
+  var pips = '';
+  for (var i = 0; i < 8; i++) {
+    pips += '<div class="pip' + (i < n ? ' done' : i === n ? ' now' : '') + '"></div>';
+  }
+  var ansHtml = '';
+  for (var i = 0; i < q.a.length; i++) {
+    var sel = answers[n] === i ? ' sel' : '';
+    ansHtml += '<button class="ans-opt' + sel + '" data-q="' + n + '" data-a="' + i + '"><div class="dot"></div><span>' + q.a[i] + '</span></button>';
+  }
+  var backHtml = n > 0 ? '<button class="back" onclick="goBack()">&#8592; Back</button>' : '<span></span>';
+  document.getElementById('p-quiz').innerHTML =
+    '<div class="prog">' + pips + '</div>' +
+    '<div class="qnum">Question ' + (n+1) + ' of 8</div>' +
+    '<span class="qtag">' + q.tag + '</span>' +
+    '<div class="qtxt">' + q.q + '</div>' +
+    '<div class="qsub">' + q.sub + '</div>' +
+    '<div class="ans">' + ansHtml + '</div>' +
+    '<div class="nav">' + backHtml + '</div>';
+  document.querySelectorAll('.ans-opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      pickA(parseInt(this.getAttribute('data-q')), parseInt(this.getAttribute('data-a')));
+    });
+  });
+}
+
+function pickA(qIdx, aIdx) {
+  if (answers[qIdx] !== undefined) {
+    var old = Q[qIdx].s[answers[qIdx]];
+    for (var k in old) scores[k] -= old[k];
+  }
+  answers[qIdx] = aIdx;
+  var sc = Q[qIdx].s[aIdx];
+  for (var k in sc) scores[k] += sc[k];
+  renderQ(qIdx);
+  setTimeout(function() {
+    if (qIdx < 7) { renderQ(qIdx + 1); }
+    else { show('p-cap'); }
+  }, 380);
+}
+
+function goBack() {
+  if (cur > 0) renderQ(cur - 1);
+  else show('p-intro');
+}
+
+function showResult() {
+  var hp = document.getElementById('hpfield');
+  if (hp && hp.value) return;
+  var n = document.getElementById('fname').value.trim();
+  var e = document.getElementById('femail').value.trim();
+  if (!n || !e) { alert('Please enter your name and email address.'); return; }
+  // Strict email validation
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailRegex.test(e)) { alert('Please enter a valid email address (e.g. name@company.com).'); return; }
+  // Block obviously fake emails
+  var domain = e.split('@')[1].toLowerCase();
+  var fakeDomains = ['test.com','fake.com','example.com','mailinator.com','guerrillamail.com','tempmail.com','throwam.com','yopmail.com','trashmail.com'];
+  if (fakeDomains.indexOf(domain) > -1) { alert('Please enter a real email address so we can send your result.'); return; }
+  // Block very short domains like a@b.co (too short to be real)
+  var domainParts = domain.split('.');
+  if (domainParts[0].length < 2) { alert('Please enter a valid email address (e.g. name@company.com).'); return; }
+  capName = n; capEmail = e;
+  var winner = 'solo'; var best = -1;
+  for (var k in scores) { if (scores[k] > best) { best = scores[k]; winner = k; } }
+  window._qwinner = winner;
+  var earlyTaglines = {
+    solo: 'You don&rsquo;t need to do more &ndash; you just need to stop doing everything.',
+    perf: 'You don&rsquo;t need to lower your standards &ndash; just make them clearer.',
+    nat: 'Growth doesn&rsquo;t come from more hires &mdash; it comes from the right ones.',
+    strat: 'Your instinct got you here &ndash; now it&rsquo;s time to systemise it.'
+  };
+  var earlyTagline = earlyTaglines[winner];
+  var r = T[winner];
+  var fn = n.split(' ')[0];
+  var needsCall = document.getElementById('g3') ? document.getElementById('g3').checked : false;
+  var newsletter = document.getElementById('g2') ? document.getElementById('g2').checked : false;
+
+  var insHtml = '';
+  for (var i = 0; i < r.ins.length; i++) {
+    var x = r.ins[i];
+    var preHtml = x.pre ? '<div style="font-weight:700;color:#0f1f45;margin-bottom:8px;font-size:13px">' + x.pre + '</div>' : '';
+    var boldHtml = x.bold ? '<div style="font-weight:700;color:#0f1f45;margin-top:10px;font-size:13px">' + x.bold + '</div>' : '';
+    insHtml +=
+      '<div style="background:' + (x.hl ? '#fff8e6' : '#fff') + ';border:1px solid ' + (x.hl ? '#e8a838' : '#e2ddd6') + ';border-radius:12px;padding:18px;margin-bottom:10px;display:flex;gap:14px;text-align:left">' +
+      '<div style="font-size:22px;flex-shrink:0;margin-top:2px">' + x.i + '</div>' +
+      '<div style="width:100%">' +
+      '<div style="font-weight:700;font-size:14px;margin-bottom:6px;color:#0f1f45">' + x.h + '</div>' +
+      preHtml +
+      '<div style="font-size:13px;color:#6b7a99;line-height:1.6">' + x.t + '</div>' +
+      boldHtml +
+      '</div></div>';
+  }
+
+  var comingHtml =
+    '<div style="background:#f4f6fa;border-radius:12px;padding:28px 24px;margin:0 0 20px;text-align:left">' +
+    '<div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b7a99;margin-bottom:18px">What&rsquo;s coming &ndash; and why it matters</div>' +
+    '<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#0f1f45;margin-bottom:14px;line-height:1.3">Imagine never having to figure out hiring on your own again.</div>' +
+    '<div style="font-size:14px;color:#6b7a99;line-height:1.75;margin-bottom:20px">We&rsquo;re building SMART Insider &mdash; a complete membership for small business owners who are ready to stop doing everything alone.<br><br><strong>SMART Start is free &mdash; always.</strong> Join now and get access to our community and key starter templates straight away. No credit card, no commitment.<br><br><strong>SMART Insider is the full experience.</strong> As a waiting list member you&rsquo;ll be first through the door when we launch &mdash; at the best price we&rsquo;ll ever offer. Here&rsquo;s what&rsquo;s inside:</div>' +
+    '<div style="display:flex;flex-direction:column;gap:0;margin-bottom:20px">' +
+    makeItem('Done-For-You Hiring Kit', '20+ plug-and-play templates including job descriptions, scorecards, offer letters, onboarding checklists and more') +
+    makeItem('First Hire Action Plan', 'a simple step-by-step plan to confidently hire your first team member') +
+    makeItem('Red Flag Detector Checklist', 'never miss a warning sign in interviews again') +
+    makeItem('Live First-Hire Support Session', '45-minute group session to map out your next hire and walk away with a clear plan') +
+    makeItem('Weekly \u201cAsk Anything\u201d Q&amp;A', 'live expert access every single week') +
+    makeItem('Smart Job Club Account', 'post and advertise your jobs with ease') +
+    makeItem('Applicant Tracking System', 'manage candidates end-to-end in one place') +
+    '</div>' +
+    '<div style="font-size:13px;color:#6b7a99;line-height:1.6;font-style:italic">SMART Start is free and always will be &mdash; it gets you into the community and starter templates straight away.<br>SMART Insider is the full experience. Waiting list members get in first, at the best price we&rsquo;ll ever offer.</div>' +
+    '</div>';
+
+  var ctaHtml =
+    '<div style="background:linear-gradient(135deg,#0f1f45,#1a3570);color:#fff;border-radius:16px;padding:30px 28px;text-align:center;margin-bottom:20px">' +
+    '<div style="display:inline-block;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px">&#128274; FOUNDING MEMBER WAITING LIST</div>' +
+    '<div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.25">' + r.cta + '</div>' +
+    '<div style="font-size:14px;opacity:.9;margin-bottom:8px;line-height:1.65">Join the waiting list and we&rsquo;ll send your personalised next steps straight to your inbox. SMART Start is free &mdash; join the community and get starter templates straight away. SMART Insider is the full experience &mdash; waiting list members get in first at the best price we&rsquo;ll ever offer.</div>' +
+    '<div style="font-size:14px;margin-bottom:20px"><strong>Start for free &ndash; no cost, no commitment.</strong><br>Free access will always be available.</div>' +
+    '<div style="display:flex;flex-direction:column;gap:10px">' +
+    '<div style="display:flex;align-items:flex-start;gap:10px;text-align:left"><input type="checkbox" id="wl-call"' + (needsCall ? ' checked' : '') + ' style="margin-top:3px;flex-shrink:0;accent-color:#e8a838;width:16px;height:16px"><label for="wl-call" style="font-size:13px;color:rgba(255,255,255,0.9);cursor:pointer;line-height:1.4">I need help now &ndash; please arrange a call</label></div>' +
+    '<div style="display:flex;align-items:flex-start;gap:10px;text-align:left"><input type="checkbox" id="wl-news"' + (newsletter ? ' checked' : '') + ' style="margin-top:3px;flex-shrink:0;accent-color:#e8a838;width:16px;height:16px"><label for="wl-news" style="font-size:13px;color:rgba(255,255,255,0.9);cursor:pointer;line-height:1.4">Yes &ndash; send me practical hiring tips while I wait. I can unsubscribe any time.</label></div>' +
+    '<div style="font-size:12px;color:#e8a838;font-weight:700;text-align:center;letter-spacing:0.5px">&#9888;&#65039; Early access spots are limited.</div>' +
+    '<button id="wlbtn" onclick="joinList()" style="background:#c41e3a;color:#fff;border:none;border-radius:50px;padding:15px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;width:100%;box-shadow:0 4px 14px rgba(196,30,58,.4)">Join the Waiting List &rarr;</button>' +
+    '<div style="font-size:11px;color:rgba(255,255,255,0.55);text-align:center">&#128274; No spam, ever. Unsubscribe any time. UK GDPR compliant.</div>' +
+    '<div id="wlok" style="display:none;font-size:14px;color:#86efac;text-align:center;font-weight:600;padding:12px;background:rgba(255,255,255,0.1);border-radius:8px;line-height:1.5">&#127881; You&rsquo;re on the list!<br>Check your inbox &ndash; your personalised action plan is on its way.</div>' +
+    '</div></div>';
+
+  var earlyHtml =
+    '<div style="background:#0f1f45;border-radius:12px;padding:22px 20px;margin-bottom:24px;text-align:center;color:#fff">' +
+    '<div style="font-family:Playfair Display,serif;font-size:19px;font-weight:700;margin-bottom:8px;line-height:1.3">Stop guessing. Start building your dream team.</div>' +
+    '<div style="font-size:13px;opacity:0.85;margin-bottom:10px">Templates, tools and expert support &ndash; all in one place.</div>' +
+    '<div style="font-size:13px;margin-bottom:14px"><strong>Start for free &ndash; no cost, no commitment.</strong><br>Join the waiting list to be first in and help shape what comes next.</div>' +
+    '<button onclick="var el=document.getElementById(\'wl-anchor\');if(el)el.scrollIntoView({behavior:\'smooth\'})" style="background:#c41e3a;color:#fff;border:none;border-radius:50px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif">Join the waiting list &darr;</button>' +
+    '<div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:12px;font-style:italic">' + earlyTagline + '</div>' +
+    '</div>';
+
+  document.getElementById('p-result').innerHTML =
+    '<div style="display:inline-flex;align-items:center;gap:8px;background:#0f1f45;color:#fff;padding:8px 18px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">' + r.icon + ' ' + r.badge + '</div>' +
+    '<div style="font-size:52px;display:block;margin-bottom:12px">' + r.icon + '</div>' +
+    '<div style="font-family:Playfair Display,serif;font-size:clamp(22px,5vw,34px);font-weight:900;line-height:1.15;margin-bottom:10px">Hi ' + fn + ', you are <em style="color:#c41e3a;font-style:italic">' + r.title + '</em></div>' +
+    '<p style="font-size:17px;color:#0f1f45;font-weight:700;line-height:1.5;margin-bottom:4px">' + r.sub + '</p>' +
+    '<p style="font-size:15px;color:#6b7a99;margin-bottom:24px;font-style:italic">' + r.sub2 + '</p>' +
+    earlyHtml +
+    '<div style="margin-bottom:20px">' + insHtml + '</div>' +
+    '<div id="wl-anchor"></div>' +
+    ctaHtml +
+    comingHtml +
+    '<div style="text-align:center;margin:24px 0 8px">' +
+    '<button onclick="var el=document.getElementById(\'wl-anchor\');if(el)el.scrollIntoView({behavior:\'smooth\'})" style="background:linear-gradient(135deg,#c41e3a,#8b0000);color:#fff;border:none;border-radius:50px;padding:15px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;box-shadow:0 6px 20px rgba(196,30,58,.3)">Join the Waiting List &rarr;</button>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:16px"><button onclick="restart()" style="background:none;border:none;font-size:13px;color:#6b7a99;cursor:pointer;text-decoration:underline;font-family:DM Sans,sans-serif">&#8592; Start over</button></div>';
+
+  show('p-result');
+  submitToWix(winner, needsCall, newsletter);
+}
+
+function makeItem(title, desc) {
+  return '<div style="font-size:14px;color:#0f1f45;line-height:1.55;padding:12px 0;border-bottom:1px solid #e2ddd6;display:flex;gap:10px;align-items:flex-start;text-align:left">' +
+    '<span style="color:#c41e3a;font-weight:700;flex-shrink:0">&#10003;</span>' +
+    '<span><strong>' + title + '</strong> &ndash; ' + desc + '</span>' +
+    '</div>';
+}
+
+function joinList() {
+  var needsCall = document.getElementById('wl-call') ? document.getElementById('wl-call').checked : false;
+  var newsletter = document.getElementById('wl-news') ? document.getElementById('wl-news').checked : false;
+  document.getElementById('wlbtn').style.display = 'none';
+  document.getElementById('wlok').style.display = 'block';
+  submitToWix(window._qwinner, needsCall, newsletter);
+}
+
+function submitToWix(type, needsCall, newsletter) {
+  var names = {solo:'The Solo Superhero', perf:'The Caring Perfectionist', nat:'The Natural Leader', strat:'The Strategic Builder'};
+  var result = names[type] + (needsCall ? ' - NEEDS CALL' : '') + (newsletter ? ' - NEWSLETTER' : '');
+  var nameParts = capName.trim().split(' ');
+  var firstName = nameParts[0] || '';
+  var lastName = nameParts.slice(1).join(' ') || '';
+
+  var labelKeys = [];
+  if (newsletter) labelKeys.push('custom.waiting-list');
+  if (needsCall) labelKeys.push('custom.needs-call');
+
+  // Call Wix Contacts API directly with API key
+  fetch('https://www.wixapis.com/contacts/v4/contacts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcIjA2ZjMzYWYxLTY0MzctNDIzZS04NzZiLTljZDQ2NzNkYmM0ZFwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcIjBiZjg4MTAzLWNmZTYtNGQwNS05MTgwLWQ1NzQ2MWY3ZTgwNVwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJjODQ4M2M2ZS1kYmMzLTQxMzctYmQ1NC1kOGIzNjFmMDZkNDhcIn19IiwiaWF0IjoxNzc3NDU3MjM3fQ.cgS2-JdlEp3lhSdf_TNAZU6qDh3kJhHKeZo9zZp8aqvXtOg4bLSuv9VZb8fd1_oi3h5CIx-LcSp37IoA-OXp_EoH1zeO84u4Nx8mQxJ7F80J1_ktBUC9rDyvsi4WNwtxD1SGPjnW0vLiFVujHdRDqF7ZhhBwKk8GHdhLAF8j_2FDdW4JMnZeC1BnsZJDQeQolmYWkrAwgTvsHwXvBtilFovUFZeUkPimpdr4CKvIrUBvmGB_YGCo-uCr9Hi-ItXUQLZhR9WzStmvZj4tGgVA4UXBTJKYXAAJHdhZLLNHokvB7_543HqEhtJK040zlB1mLpZByGQK0IXgKYVnWnI6nw',
+      'wix-site-id': '8e6ab489-be43-4f58-a100-3a06379e27dd'
+    },
+    body: JSON.stringify({
+      info: {
+        name: { first: firstName, last: lastName },
+        emails: { items: [{ email: capEmail, tag: 'MAIN' }] },
+        extendedFields: {
+          items: { 'custom.quiz-result-jvmfbuppoqxxcuuartytnff': result }
+        },
+        labelKeys: { items: labelKeys }
+      }
+    })
+  }).then(function(r) {
+    return r.json();
+  }).then(function(d) {
+    console.log('Contact saved:', d.contact ? d.contact.id : d);
+  }).catch(function(e) {
+    console.log('Contact error:', e);
+  });
+}
+function fallbackSubmit(result, needsCall, newsletter) {
+  // Fallback: submit via Wix Form so contact is created automatically
+  var nameParts = capName.trim().split(' ');
+  var formData = {
+    formId: 'f6dd7e39-c6e6-41d6-94f9-84db86690ad5',
+    submissions: {
+      'first-name': nameParts[0] || '',
+      'last-name': nameParts.slice(1).join(' ') || '',
+      'email': capEmail,
+      'field:quiz_result': result
+    }
+  };
+  fetch('https://www.smartresourcesolutions.com/_api/wix-forms/v1/submit-form', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(formData)
+  }).catch(function() {});
+}
+
+function restart() {
+  scores = {solo:0, perf:0, nat:0, strat:0};
+  answers = {}; cur = 0; capName = ''; capEmail = '';
+  show('p-intro');
+}
+</script>
+</body>
+</html>
